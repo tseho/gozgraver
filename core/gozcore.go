@@ -118,9 +118,14 @@ func openProtocol(model Model) (protocol, error) {
 	return nil, fmt.Errorf("The protocol for %s has not been implemented", model)
 }
 
-// SetBurnTime requests a new burn time for upcoming engravings
+// SetBurnTime sets the burn time, in ms, for upcoming engravings
 func (graver *Graver) SetBurnTime(burn int) error {
 	return graver.protocol.SetBurnTime(graver, burn)
+}
+
+// SetLaserPower sets the laser power, in %, for upcoming engravings
+func (graver *Graver) SetLaserPower(power int) error {
+	return graver.protocol.SetLaserPower(graver, power)
 }
 
 // Reset requests the graver to reload the default settings

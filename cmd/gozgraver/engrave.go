@@ -32,6 +32,7 @@ Arguments:
 Options:
         --burn int   Burn time in ms (default 18)
         --times int  Amount of passes (default 1)
+        --power int  Laser power in percentage [1, 100] (default 60)
     -v, --verbose    Increase the verbosity
         --debug      Include all the traces in the logs
         --help       Display this help message
@@ -45,6 +46,7 @@ func engrave() error {
 	cmd := flag.NewFlagSet("engrave", flag.ContinueOnError)
 	burn := cmd.Int("burn", 18, "")
 	times := cmd.Int("times", 1, "")
+	power := cmd.Int("power", 60, "")
 	v := cmd.BoolP("verbose", "v", false, "")
 	debug := cmd.Bool("debug", false, "")
 
@@ -108,6 +110,7 @@ func engrave() error {
 	}
 
 	graver.SetBurnTime(*burn)
+	graver.SetLaserPower(*power)
 	err = graver.Engrave(img, *times)
 	if err != nil {
 		fmt.Println(err)

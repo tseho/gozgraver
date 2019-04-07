@@ -23,6 +23,15 @@ func (p protocolv4) SetBurnTime(graver *Graver, burn int) error {
 	return nil
 }
 
+func (p protocolv4) SetLaserPower(graver *Graver, power int) error {
+	if power < 1 || power > 100 {
+		return fmt.Errorf("power is out of range: [1, 100]")
+	}
+	graver.Connection.Send([]byte{255, 13, 0, byte(power)})
+	time.Sleep(time.Millisecond * 20)
+	return nil
+}
+
 func (p protocolv4) Reset(graver *Graver) {
 	log.Info("Reset the graver")
 	graver.Connection.Send([]byte{255, 4, 1, 0})
