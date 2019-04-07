@@ -48,7 +48,7 @@ func translatePayloadsToEvents(payloads <-chan []byte, events *emitter.Emitter) 
 				if status > 100 {
 					status = 100
 				}
-				log.Debugf("Battery status: %d%%", status)
+				log.Tracef("Battery status: %d%%", status)
 				go events.Emit(EventBatteryStatus, status)
 			case 10:
 				// carving time in ms
