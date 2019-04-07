@@ -105,7 +105,7 @@ func (p protocolv4) Engrave(graver *Graver, img image.Image, times int) error {
 
 			// If color != FFFFFF
 			if r&g&b < 255 {
-				data[i] |= 128 >> byte(y%8)
+				data[i] |= 128 >> byte(x%8)
 			}
 		}
 	}
