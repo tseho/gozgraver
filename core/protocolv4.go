@@ -117,11 +117,11 @@ func (p protocolv4) Engrave(graver *Graver, img image.Image, times int) error {
 
 	// Tell the graver where are the top left coordinates
 	graver.Connection.Send([]byte{255, 110, 1, byte(x / 100), byte(x % 100), byte(y / 100), byte(y % 100)})
-	log.Debugf("Engraving {x: %d, y: %d}", x, y)
+	log.Debugf("Engraving instructions {x: %d, y: %d}", x, y)
 	// And what are the width & height.
 	// The width is rounded up because the compression to bits is modulo 8
 	graver.Connection.Send([]byte{255, 110, 2, byte(stride * 8 / 100), byte(stride * 8 % 100), byte(h / 100), byte(h % 100)})
-	log.Debugf("Engraving {width: %d, height: %d}", stride*8, h)
+	log.Debugf("Engraving instructions {width: %d, height: %d}", stride*8, h)
 
 	time.Sleep(time.Millisecond * 20)
 
