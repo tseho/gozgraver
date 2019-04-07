@@ -63,7 +63,7 @@ func translatePayloadsToEvents(payloads <-chan []byte, events *emitter.Emitter) 
 			case 15:
 				// charging current in mA
 				status := int(payload[2])*100 + int(payload[3])
-				log.Debugf("Charging current: %dmA", status)
+				log.Tracef("Charging current: %dmA", status)
 				go events.Emit(EventChargingStatus, status)
 			case 16:
 				if payload[2] != 1 || payload[3] != 0 {
