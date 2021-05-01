@@ -17,6 +17,7 @@ import (
 	_ "image/png"
 
 	"github.com/sirupsen/logrus"
+	"github.com/disintegration/imaging"
 	flag "github.com/spf13/pflag"
 	gozgraver "github.com/tseho/gozgraver/core"
 )
@@ -33,6 +34,7 @@ Options:
         --burn int   Burn time in ms (default 18)
         --times int  Amount of passes (default 1)
         --power int  Laser power in percentage [1, 100] (default 60)
+        --flipv      Flip the image vertically (from top to bottom)
     -v, --verbose    Increase the verbosity
         --debug      Include all the traces in the logs
         --help       Display this help message
@@ -47,6 +49,7 @@ func engrave() error {
 	burn := cmd.Int("burn", 18, "")
 	times := cmd.Int("times", 1, "")
 	power := cmd.Int("power", 60, "")
+	flipv := cmd.Bool("flipv", false, "")
 	v := cmd.BoolP("verbose", "v", false, "")
 	debug := cmd.Bool("debug", false, "")
 
@@ -100,6 +103,10 @@ func engrave() error {
 	if err != nil {
 		fmt.Println(err)
 		return err
+	}
+
+	if *flipv {
+		img = imaging.FlipV(img);
 	}
 
 	// Open the graver connection
